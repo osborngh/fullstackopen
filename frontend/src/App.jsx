@@ -15,9 +15,14 @@ const App = () => {
 
   // Pull data from server
   useEffect(() => {
-    noteService.getAll().then(res => {
-      setNotes(res);
-    })
+    noteService.getAll()
+      .then(res => {
+        setNotes(res);
+      })
+      .catch(() => {
+        setErrorMsg('Failed to load notes from server');
+        setTimeout(() => setErrorMsg(null), 5000);
+      })
   }, []);
 
   // console.log("Render: ", notes.length, 'notes')
@@ -31,10 +36,15 @@ const App = () => {
       important: Math.random() > 0.5,
     }
 
-    noteService.create(noteObj).then(res => {
-      setNotes(notes.concat(res));
-      setNewNote('')
-    })
+    noteService.create(noteObj)
+      .then(res => {
+        setNotes(notes.concat(res));
+        setNewNote('')
+      })
+      .catch(() => {
+        setErrorMsg('Failed to save note');
+        setTimeout(() => setErrorMsg(null), 5000);
+      })
   }
 
   const handleNoteChange = (event) => {

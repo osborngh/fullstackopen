@@ -25,11 +25,6 @@ let notes = [
     }
 ];
 
-const reqLogger = (req, res, next) => {
-    console.log('Method: ', req.method)
-    console.log('Body', res.body)
-    next();
-}
 
 app.get('/', (req, res) => {
     res.send('<h1>Hello World!</h1>');
@@ -42,9 +37,9 @@ app.get('/api/notes', (req, res) => {
 app.get('/api/notes/:id', (req, res) => {
     const id = req.params.id;
     const note = notes.find(n => n.id === id);
-    console.log(`Note here: `, note.content);
 
     if (note) {
+        console.log(`Note here: `, note.content);
         res.json(note);
     } else {
         res.status(404).end()
@@ -68,7 +63,7 @@ const genId = () => {
 app.post('/api/notes', (req, res) => {
     const body = req.body;
     if (!body.content) {
-        res.status(400).json({
+        return res.status(400).json({
             error: 'Content Missing'
         })
     }
@@ -83,6 +78,21 @@ app.post('/api/notes', (req, res) => {
     res.json(note)
 })
 
+app.put('/api/notes/:id', (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+    const note = notes.find(n => n.id === id);
+    if (!note) return res.status(404).end();
+    
+    const updated = { 
+        ...note, 
+        content: body.content ?? note.content, 
+        important: body.important !== undefined ? !!body.important : note.important 
+    };
+    notes = notes.map(n => (n.id === id ? updated : n));
+    res.json(updated);
+})
+
 const unknownEndpoint = (req, res) => {
     res.status(404).json({
         error: 'Unknown Endpoint'
@@ -92,6 +102,6 @@ const unknownEndpoint = (req, res) => {
 app.use(unknownEndpoint);
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`)
 });
