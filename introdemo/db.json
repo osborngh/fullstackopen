@@ -1,0 +1,49 @@
+{
+  "notes": [
+    {
+      "id": "1",
+      "content": "HTML is easy",
+      "important": true
+    },
+    {
+      "id": "2",
+      "content": "Browser can execute only Javascript",
+      "important": true
+    },
+    {
+      "id": "3",
+      "content": "GET and POST are most important methods of HTTP Protocol",
+      "important": false
+    },
+    {
+      "id": "b0db",
+      "content": "a new note...",
+      "important": true
+    },
+    {
+      "id": "0b03",
+      "content": "The quick brown fox",
+      "important": true
+    },
+    {
+      "id": "ecce",
+      "content": "another one, its DJ Khaled",
+      "important": false
+    },
+    {
+      "id": "b4a3",
+      "content": "arthurrrr",
+      "important": false
+    },
+    {
+      "id": "15b5",
+      "content": "a new note...",
+      "important": false
+    },
+    {
+      "id": "0ed8",
+      "content": "Vinciiiiii",
+      "important": true
+    }
+  ]
+}
